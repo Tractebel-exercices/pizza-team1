@@ -22,5 +22,4 @@ public class PizzaController {
     public String pizzaConfig(@PathVariable("id") int id) {
         return "pizzaConfig";
     }
-
 }

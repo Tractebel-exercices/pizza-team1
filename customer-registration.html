@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="end">
+    <head>
+        <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+    </head>
+
+    <body>
+        <h1>Team 1 Pizza Service - User Registration</h1>
+
+        <h3>Customer</h3>
+        <div>
+            <label>Name: </label><input type="text" id="name" />
+        </div>
+
+        <div>
+            <label>E-mail: </label><input type="text" id="email" />
+        </div>
+        
+        <h3>Address</h3>
+        <div>
+            <label>Street: </label><input type="text" id="address-street" />
+        </div>
+        <div>
+            <label>Number: </label><input type="text" id="address-number" />
+        </div>
+        <div>
+            <label>Complement: </label><input type="text" id="address-complement" />
+        </div>
+        <div>
+            <label>Postal Code: </label><input type="text" id="address-postalCode" />
+        </div>
+        <div>
+            <label>City: </label><input type="text" id="address-city" />
+        </div>
+        <div>
+            <label>Country: </label><input type="text" id="address-country" />
+        </div>
+
+        <h3>Payment</h3>
+        <div>
+            <label>Provider: </label><input type="text" id="payment-provider" />
+        </div>
+
+        <div>
+            <label>Number: </label><input type="text" id="payment-number" />
+        </div>
+
+        <div>
+            <label>Expiration: </label><input type="text" id="payment-expiration" />
+        </div>
+
+        <h3>Pizza! :D</h3>
+        <div>
+            <label>Store: </label><input type="text" id="pizza-store" />
+        </div>
+
+        <div>
+            <label>Favorite Pizza: </label><input type="text" id="favorite-pizza" />
+        </div>
+        
+
+        <button id="submit">Submit</button>
+
+        <script type="text/javascript"> 
+            $('#submit').on('click', function() {
+                
+                var user = {};
+                user.name = $('#name').val();
+                user.email = $('#email').val();
+
+                var address = {};
+                address.street = $('#address-street').val();
+                address.number = $('#address-number').val();
+                address.complement = $('#address-complement').val();
+                address.postalCode = $('#address-postalCode').val();
+                address.city = $('#address-city').val();
+                address.country = $('#address-country').val();
+
+                var paymentDetails = {};
+                paymentDetails.provider = $('#payment-provider').val();
+                paymentDetails.number = $('#payment-number').val();
+                paymentDetails.expiration = $('#payment-expiration').val();
+
+                var pizza = {};
+                pizza.store = $('#pizza-store').val();
+                pizza.favoritePizza = $('#favorite-pizza').val();
+
+                user.address = address;
+                user.paymentDetails = paymentDetails;
+                user.favoritePizza = pizza;
+                
+                console.dir(user);
+
+                $.post('http:8080//192.168.1.27/pizza/team1/register', {data: user}).then(function() {
+                    alert('user registration successful!');
+                });
+
+            });
+            </script>
+    </body>
+
+</html>
