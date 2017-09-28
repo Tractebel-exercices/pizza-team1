@@ -1,0 +1,116 @@
+swagger: "2.0"
+info:
+  description: "This is a sample server Pizza ordering service"
+  version: "1.0.0"
+  title: "RED Pizza Order"
+  termsOfService: "http://swagger.io/terms/"
+  contact:
+    email: "yannick.pihan@tractebel.engie.com"
+  license:
+    name: "Apache 2.0"
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+basePath: "/v1"
+schemes:
+  - "http"
+paths:
+  /order:
+    post:
+      summary: "Add a new order to the RED Pizza place"
+      description: ""
+      operationId: "orderPizza"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Pizza order to be sent to RED Pizza"
+        required: true
+        schema:
+          $ref: "#/definitions/Order"
+      responses:
+        "200":
+          description: "Successful Order"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+        "405":
+          description: "Invalid input"
+definitions:
+  Address:
+    type: "object"
+    properties:
+      street:
+        type: "string"
+      number:
+        type: "string"
+      complement:
+        type: "string"
+      postalCode:
+        type: "string"
+      city:
+        type: "string"
+      country:
+        type: "string"
+  Payment:
+    type: "object"
+    properties:
+      provider:
+        type: "string"
+        description: "payment provider"
+        enum:
+        - "visa"
+      number:
+        type: "string"
+      expiration:
+        type: "string"
+  MenuOrder:
+    type: "object"
+    properties:
+      restaurant:
+        type: "string"
+        description: "restaurant to order from"
+        enum:
+        - "RED Pizza"
+      menuItem:
+        type: "integer"
+        format: "int64"
+  Order:
+    type: "object"
+    required:
+    - "customer"
+    - "menuOrder"
+    properties:
+      customer:
+        $ref: "#/definitions/Customer"
+      menuOrder:
+        $ref: "#/definitions/MenuOrder"
+  Customer:
+    type: "object"
+    required:
+    - "name"
+    - "email"
+    - "address"
+    - "payment"
+    properties:
+      name:
+        type: "string"
+      email:
+        type: "string"
+      address:
+        $ref: "#/definitions/Address"
+      payment:
+        $ref: "#/definitions/Payment"        
+  ApiResponse:
+    type: "object"
+    properties:
+      orderTime:
+        type: "string"
+      deliveryTime:
+        type: "string"
+      price:
+        type: "string"
+        pattern: "[0-9]+.[0-9][0-9]"
+externalDocs:
+  description: "Find out more about Swagger"
+  url: "http://swagger.io"
